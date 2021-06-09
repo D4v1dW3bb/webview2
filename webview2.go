@@ -486,6 +486,12 @@ func (w *webview) Eval(js string) {
 	w.browser.Eval(js)
 }
 
+func (w *webview) SetTransparentBackground(hwnd win.HWND) {
+	win.SetWindowLong(hwnd, win.GWL_EXSTYLE, win.GetWindowLong(hwnd, win.GWL_EXSTYLE)|win.WS_EX_LAYERED|win.WS_EX_NOACTIVATE)
+	win.SetWindowPos(hwnd, win.HWND_TOPMOST, 0, 0, 0, 0, win.SWP_NOSIZE|win.SWP_NOMOVE|win.SWP_NOACTIVATE|win.SWP_SHOWWINDOW)
+	user32local.SetLayeredWindowAttributes(hwnd, win.RGB(255, 255, 255), 0, user32local.LWA_ALPHA)
+}
+
 func (w *webview) Dispatch(f func()) {
 	// TODO
 }
