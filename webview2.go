@@ -440,7 +440,7 @@ func (w *webview) SetTitle(title string) {
 }
 
 func (w *webview) SetSize(width int, height int, hints Hint) {
-	index := win.GWL_STYLE
+	index := win.GWL_EXSTYLE
 
 	//style, _, _ := user32GetWindowLongPtrW.Call(w.hwnd, uintptr(index))
 	style := win.GetWindowLongPtr(win.HWND(w.hwnd), int32(index))
@@ -467,7 +467,7 @@ func (w *webview) SetSize(width int, height int, hints Hint) {
 		r.Right = int32(width)
 		r.Bottom = int32(height)
 		// user32AdjustWindowRect.Call(uintptr(unsafe.Pointer(&r)), _WSOverlappedWindow, 0)
-		win.AdjustWindowRect(&r, win.WS_OVERLAPPEDWINDOW, false)
+		//win.AdjustWindowRect(&r, win.WS_OVERLAPPEDWINDOW, false)
 
 		// user32SetWindowPos.Call(
 		//	w.hwnd, 0, uintptr(r.Left), uintptr(r.Top), uintptr(r.Right-r.Left), uintptr(r.Bottom-r.Top),
