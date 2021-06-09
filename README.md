@@ -1,1 +1,1 @@
-TODO: Text for fork of 
+TODO: Text for fork of "jchv/go-webview2" 
