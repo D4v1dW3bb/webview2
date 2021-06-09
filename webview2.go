@@ -467,7 +467,7 @@ func (w *webview) SetSize(width int, height int, hints Hint) {
 		r.Right = int32(width)
 		r.Bottom = int32(height)
 		// user32AdjustWindowRect.Call(uintptr(unsafe.Pointer(&r)), _WSOverlappedWindow, 0)
-		//win.AdjustWindowRect(&r, win.WS_OVERLAPPEDWINDOW, false)
+		win.AdjustWindowRect(&r, win.WS_OVERLAPPEDWINDOW, false)
 
 		// user32SetWindowPos.Call(
 		//	w.hwnd, 0, uintptr(r.Left), uintptr(r.Top), uintptr(r.Right-r.Left), uintptr(r.Bottom-r.Top),
@@ -486,10 +486,10 @@ func (w *webview) Eval(js string) {
 	w.browser.Eval(js)
 }
 
-func (w *webview) SetTransparentBackground(hwnd win.HWND) {
+func (w *webview) SetTransparentBackground(hwnd win.HWND, op byte) {
 	win.SetWindowLong(hwnd, win.GWL_EXSTYLE, win.GetWindowLong(hwnd, win.GWL_EXSTYLE)|win.WS_EX_LAYERED|win.WS_EX_NOACTIVATE)
 	win.SetWindowPos(hwnd, win.HWND_TOPMOST, 0, 0, 0, 0, win.SWP_NOSIZE|win.SWP_NOMOVE|win.SWP_NOACTIVATE|win.SWP_SHOWWINDOW)
-	user32local.SetLayeredWindowAttributes(hwnd, win.RGB(255, 255, 255), 0, user32local.LWA_ALPHA)
+	user32local.SetLayeredWindowAttributes(hwnd, win.RGB(255, 255, 255), op, user32local.LWA_ALPHA)
 }
 
 func (w *webview) Dispatch(f func()) {

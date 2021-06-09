@@ -83,5 +83,5 @@ type WebView interface {
 	Bind(name string, f interface{}) error
 
 	// Sets Transparent Background with lxn/win commands
-	SetTransparentBackground(hwnd win.HWND)
+	SetTransparentBackground(hwnd win.HWND, op byte)
 }
